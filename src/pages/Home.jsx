@@ -1,16 +1,22 @@
+import { useState } from "react";
+
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
+import SignIn from "../components/SignIn";
+import SignOut from "../components/SignOut";
+
 function Home() {
+  const [isAuth, setIsAuth] = useState(false);
   return (
-    <div className="grid grid-rows-[50px,1fr] grid-cols-3 gap-4 text-center">
-      <NavBar className="col-start-1 col-end-4 row-start-1 row-end-2 bg-gray-400 text-black flex justify-around align-middle" />
-      <p className="col-start-1 col-end-2 row-start-2 row-end-4">
-        Tags go here
-      </p>
-      <PostList className="col-start-2 col-end-3 row-start-2 row-end-3" />
-      <div className="col-start-3 col-end-4 row-start-2 row-end-3">
-        <p>Profile</p>
-        <p>About Us</p>
+    <div className="bg-gray-50">
+      <NavBar />
+      <div className="grid grid-cols-[1fr,2fr,1fr] max-w-7xl mx-auto">
+        <div>Tags go here</div>
+        <PostList />
+        <div>
+          {!isAuth ? <SignOut /> : <SignIn />}
+          <p>About Us</p>
+        </div>
       </div>
     </div>
   );
