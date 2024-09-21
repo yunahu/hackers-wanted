@@ -14,6 +14,18 @@ const posts = [
     content: "Post 2 content",
     tags: ["tag2", "tag3"],
   },
+  {
+    id: 3,
+    title: "Post 3",
+    content: "Post 3 content",
+    tags: ["tag2", "tag3"],
+  },
+  {
+    id: 4,
+    title: "Post 4",
+    content: "Post 4 content",
+    tags: ["tag2", "tag3"],
+  },
 ];
 
 function PostList() {
