@@ -10,7 +10,13 @@ function PostCard({ post }) {
 
   return (
     <div className="hover:cursor-pointer" onClick={handleClick}>
-      <div className="bg-[#d9d9d9] rounded-2xl">
+      <div
+        className={`${
+          post.status
+            ? "bg-gradient-to-br from-green-500 via-green-300 to-green-100"
+            : "bg-gray-300"
+        } rounded-2xl`}
+      >
         <div className="pl-[15px] pt-[13px] pr-[26px] pb-[17px]">
           <div className="rounded-full bg-white flex w-[66px] items-center mb-[15px]">
             <div
@@ -29,7 +35,9 @@ function PostCard({ post }) {
         <div className="bg-[#f5f5f5] h-9 flex gap-[20px] items-center rounded-b-2xl px-[15px]">
           {tags.map((tag) => (
             <span
-              className="bg-[#d9d9d9] px-[5px] rounded-full h-5 min-w-12	flex items-center text-xs justify-center"
+              className={`${
+                post.status ? "bg-green-400" : "bg-gray-300"
+              } px-[5px] rounded-full h-5 min-w-12	flex items-center text-xs justify-center`}
               key={tag}
             >
               {tag}
