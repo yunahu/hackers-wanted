@@ -1,8 +1,8 @@
 function PostCard({ post }) {
   return (
-    <div className="">
+    <div>
       <div className="bg-[#d9d9d9] rounded-2xl">
-        <div className="pl-[15px] pt-[13px] pr-[26px] pb-[17px] ">
+        <div className="pl-[15px] pt-[13px] pr-[26px] pb-[17px]">
           <div className="rounded-full bg-white flex w-[66px] items-center mb-[15px]">
             <div className="w-2.5 h-2.5 bg-gray-300 rounded-full m-1"></div>
             <span className="text-xs">{post.open ? "Active" : "Closed"}</span>
