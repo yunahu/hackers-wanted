@@ -1,6 +1,78 @@
-export default function NewPostForm() {
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function PostForm(props) {
+  const [title, setTitle] = useState(props.post?.title ?? "");
+  const [description, setDescription] = useState(props.post?.description ?? "");
+  const [category, setCategory] = useState("");
+  const [skills, setSkills] = useState(props.post?.skills ?? []);
+  const [startDate, setStartDate] = useState(props.post?.startDate ?? "");
+  const [endDate, setEndDate] = useState(props.post?.endDate ?? "");
+  const [status, setStatus] = useState(props.post?.status ?? 1);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+
+    if (props.post) {
+      const response = await axios.patch(
+        `${import.meta.env.VITE_BACKEND_URL}/posts/${props.post.id}`,
+        {
+          title,
+          description,
+          category,
+          tags: skills.join(","),
+          startDate,
+          endDate,
+          status,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      navigate(`/post/${props.post.id}`);
+    } else {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/posts`,
+        {
+          title,
+          description,
+          category,
+          tags: skills.join(","),
+          startDate,
+          endDate,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      const postId = response?.data?.post?.insertId;
+
+      if (postId) {
+        navigate(`/post/${postId}`);
+      }
+    }
+  };
+
+  const handleSkills = (e) => {
+    if (e.target.checked) {
+      setSkills((prevSkills) => [...prevSkills, e.target.value]);
+    } else {
+      setSkills((prevSkills) =>
+        prevSkills.filter((skill) => skill !== e.target.value)
+      );
+    }
+  };
+
+  console.log("ffffffff", props.post);
   return (
-    <form className="max-w-2xl mx-auto p-6 bg-green-50 shadow-lg rounded-lg space-y-6">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-2xl mx-auto p-6 bg-green-50 shadow-lg rounded-lg space-y-6"
+    >
       {/* Project Title */}
       <div>
         <label
@@ -16,6 +88,8 @@ export default function NewPostForm() {
           required
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="Enter a short, descriptive title"
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
         />
       </div>
 
@@ -34,6 +108,8 @@ export default function NewPostForm() {
           rows="5"
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="Describe the project idea in detail"
+          onChange={(e) => setDescription(e.target.value)}
+          value={description}
         />
       </div>
 
@@ -50,6 +126,8 @@ export default function NewPostForm() {
           name="category"
           required
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          onChange={(e) => setCategory(e.target.value)}
+          value={category}
         >
           <option value="">Select a category</option>
           <option value="web-development">Web Development</option>
@@ -59,6 +137,28 @@ export default function NewPostForm() {
         </select>
       </div>
 
+      {/* Status */}
+      {props.post && (
+        <div>
+          <label
+            className="block text-sm font-medium text-gray-700"
+            htmlFor="status"
+          >
+            Search Status
+          </label>
+          <select
+            id="status"
+            name="status"
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            onChange={(e) => setStatus(e.target.value)}
+            value={status}
+          >
+            <option value={1}>Active</option>
+            <option value={0}>Closed</option>
+          </select>
+        </div>
+      )}
       {/* Skills Required */}
       <div>
         <label
@@ -74,6 +174,7 @@ export default function NewPostForm() {
               id="skill-js"
               name="skills"
               value="JavaScript"
+              onChange={handleSkills}
             />
             <label htmlFor="skill-js" className="ml-2">
               JavaScript
@@ -85,9 +186,22 @@ export default function NewPostForm() {
               id="skill-python"
               name="skills"
               value="Python"
+              onChange={handleSkills}
             />
             <label htmlFor="skill-python" className="ml-2">
               Python
+            </label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              id="skill-java"
+              name="skills"
+              value="Java"
+              onChange={handleSkills}
+            />
+            <label htmlFor="skill-java" className="ml-2">
+              Java
             </label>
           </div>
           {/* Add more skills */}
@@ -113,8 +227,8 @@ export default function NewPostForm() {
               type="date"
               id="start-date"
               name="start-date"
-              required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
+              onChange={(e) => setStartDate(e.target.value)}
             />
           </div>
 
@@ -130,8 +244,8 @@ export default function NewPostForm() {
               type="date"
               id="end-date"
               name="end-date"
-              required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
+              onChange={(e) => setEndDate(e.target.value)}
             />
           </div>
         </div>
@@ -139,11 +253,8 @@ export default function NewPostForm() {
 
       {/* Submit Button */}
       <div className="flex justify-center">
-        <button
-          type="submit"
-          className="bg-green-500 text-white px-4 py-2 rounded-md shadow hover:bg-green-700 focus:ring focus:ring-green-500"
-        >
-          Submit Idea
+        <button className="bg-green-500 text-white px-4 py-2 rounded-md shadow hover:bg-green-700 focus:ring focus:ring-green-500">
+          {props.post ? "Edit Post" : "Submit Idea"}
         </button>
       </div>
     </form>

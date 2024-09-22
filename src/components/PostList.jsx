@@ -6,7 +6,7 @@ function PostList() {
   const [ loading, setLoading ] = useState(false);
   const ref = useRef();
   const LIMIT = 5;
-  const { scrollPosition, setScrollPosition, postList, setPostList, offset, setOffset } = useApp();
+  const { scrollPosition, setScrollPosition, postList, setPostList, offset, setOffset, selectedTags } = useApp();
 
   useEffect(() => {
     if (ref.current && scrollPosition !== 0) {
@@ -20,7 +20,15 @@ function PostList() {
       setLoading(true);
 
       try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/posts?offset=${offset}`);
+        let query = `${import.meta.env.VITE_BACKEND_URL}/posts?offset=${offset}`;
+
+        if (selectedTags.length > 0) {
+          const tagsQuery = selectedTags.join(',');
+          query += `&tags=${tagsQuery}`;
+        }
+
+        console.log(query);
+        const response = await fetch(query);
 
         if (!response.ok) throw new Error('Unable to fetch posts.');
 
@@ -36,7 +44,7 @@ function PostList() {
     };
 
     fetchPosts();
-  }, [offset]);
+  }, [offset, selectedTags]);
 
   useEffect(() => {
     const handleScroll = debounce(() => {

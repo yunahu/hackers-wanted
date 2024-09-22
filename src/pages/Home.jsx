@@ -5,6 +5,7 @@ import NavBar from "../components/NavBar";
 import SignIn from "../components/SignIn";
 import SignOut from "../components/SignOut";
 import AboutUs from "../components/AboutUs";
+import TagList from '../components/TagList';
 
 function Home() {
   const { user } = useApp();
@@ -13,7 +14,7 @@ function Home() {
     <div className="bg-gray-50">
       <NavBar />
       <div className="grid grid-cols-[1fr,2fr,1fr] max-w-7xl mx-auto">
-        <div>Tags go here</div>
+        <TagList/>
         <PostList />
         <div>
           {user ? <SignOut /> : <SignIn />}
