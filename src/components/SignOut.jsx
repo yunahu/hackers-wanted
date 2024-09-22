@@ -25,7 +25,7 @@ export default function SignOut() {
     <div className="mt-4 mx-2 p-4 rounded-xl bg-green-200">
       <div className="flex flex-row gap-2 mb-4">
         <div className="w-10 h-10 bg-gray-300 rounded-full">
-          <img src={user.profile_picture || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y&s=200"} alt="profile picture"/>
+          <img className="rounded-full" src={user.profile_picture || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y&s=200"} alt="profile picture"/>
         </div>
         <div>
           <div className="font-semibold">{user.name}</div>
