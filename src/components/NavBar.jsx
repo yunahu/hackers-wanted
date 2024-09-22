@@ -1,7 +1,10 @@
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Logo from "../images/hackers-wanted-logo.png";
+import { useNavigate } from "react-router-dom";
 function NavBar() {
+  const navigate = useNavigate();
+
   return (
     <nav className="h-[80px] bg-gray-900 border-b-4 border-green-500 text-white">
       <div className="h-full max-w-7xl flex justify-between items-center mx-auto">
@@ -21,7 +24,10 @@ function NavBar() {
           </button>
         </div>
 
-        <button className="h-8 ml-4 px-2 py-1 flex my-auto bg-white rounded-lg text-green-600">
+        <button
+          className="h-8 ml-4 px-2 py-1 flex my-auto bg-white rounded-lg text-green-600"
+          onClick={() => navigate("/newpost")}
+        >
           <PlusIcon className="h-6 w-6" />
           create new post
         </button>

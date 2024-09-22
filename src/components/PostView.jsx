@@ -1,8 +1,14 @@
 import { ArrowLeftCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-function PostView({
-  post = {
+function PostView() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  // TODO: fetch post by id
+
+  // mock data
+  const post = {
     id: 1,
     title:
       "Consequat primis consectetur at consectetur, tincidunt lacinia quis sit.",
@@ -13,14 +19,17 @@ function PostView({
     email: "user1@gmail.com",
     createdAt: "2021-09-12T12:00:00Z",
     status: "active",
-  },
-}) {
+  };
+
   const [interested, setInterested] = useState(false);
 
   return (
     <div className="PostView w-full max-w-2xl mx-auto flex flex-col">
       <div className="flex flex-row gap-2 items-center mt-8">
-        <button className="text-green-500 hover:text-green-700">
+        <button
+          className="text-green-500 hover:text-green-700"
+          onClick={() => navigate(-1)}
+        >
           <ArrowLeftCircleIcon className="h-10 w-10" />
         </button>
         {/* Avatar */}
