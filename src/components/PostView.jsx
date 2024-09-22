@@ -103,7 +103,7 @@ function PostView() {
             </h1>
             {/* Tags */}
             <div className="flex flex-row gap-1 mt-2">
-              {post.status ? (
+              {post.status == 1 ? (
                 <span className="bg-green-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                   Active
                 </span>
