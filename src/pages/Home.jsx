@@ -1,9 +1,10 @@
-import { useApp } from '../context/AppContext';
+import { useApp } from "../context/AppContext";
 
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
 import SignIn from "../components/SignIn";
 import SignOut from "../components/SignOut";
+import AboutUs from "../components/AboutUs";
 
 function Home() {
   const { user } = useApp();
@@ -16,7 +17,7 @@ function Home() {
         <PostList />
         <div>
           {user ? <SignOut /> : <SignIn />}
-          <p>About Us</p>
+          <AboutUs />
         </div>
       </div>
     </div>

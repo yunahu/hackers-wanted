@@ -2,11 +2,11 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Logo from "../images/hackers-wanted-logo.png";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useApp } from "../context/AppContext";
 
 function NavBar() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user } = useApp();
 
   const handleCreatePost = () => {
     if (user) {
