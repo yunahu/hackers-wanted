@@ -1,8 +1,8 @@
 import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
-import { useAuth } from '../context/AuthContext';
+import { useApp } from '../context/AppContext';
 
 export default function SignOut() {
-  const { user, setUser } = useAuth();
+  const { user, setUser } = useApp();
 
   const signOut = async () => {
     try {

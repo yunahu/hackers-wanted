@@ -1,13 +1,16 @@
 import React, {useState, useContext, useEffect} from 'react'
 
-const AuthContext = React.createContext();
+const AppContext = React.createContext();
 
-export function useAuth() {
-    return useContext(AuthContext);
+export function useApp() {
+    return useContext(AppContext);
 }
 
-export function AuthProvider(props) {
+export function AppProvider(props) {
     const [user, setUser] = useState();
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [ postList, setPostList ] = useState([]);
+    const [ offset, setOffset ] = useState(0);
 
     useEffect(() => {
         const run = async () => {
@@ -34,8 +37,14 @@ export function AuthProvider(props) {
 
     const value = {
         user, 
-        setUser
+        setUser,
+        scrollPosition,
+        setScrollPosition,
+        postList,
+        setPostList,
+        offset,
+        setOffset
     }
 
-    return (<AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>)
+    return (<AppContext.Provider value={value}>{props.children}</AppContext.Provider>)
 }
