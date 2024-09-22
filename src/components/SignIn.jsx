@@ -2,7 +2,7 @@ import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
 
 export default function SignIn() {
   const signInWithGoogle = () => {
-    console.log("Signing in with Google");
+    window.open(`${import.meta.env.VITE_BACKEND_URL}/auth/google`, "_self");
   };
 
   return (

@@ -1,20 +1,32 @@
 import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
+import { useAuth } from '../context/AuthContext';
 
 export default function SignOut() {
-  // mock user and sign out
-  const user = {
-    name: "John Doe",
-    email: "johndoe@gmail.com",
-  };
+  const { user, setUser } = useAuth();
 
-  const signOut = () => {
-    console.log("Signing out");
+  const signOut = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`, {
+        method: 'GET',
+        credentials: "include"
+    });
+
+    if (!response.ok) throw new Error('Unable to sign out.');
+
+    setUser(null);
+
+    } catch (err) {
+      console.error(err);
+      // TODO
+    }
   };
 
   return (
     <div className="mt-4 mx-2 p-4 rounded-xl bg-green-200">
       <div className="flex flex-row gap-2 mb-4">
-        <div className="w-10 h-10 bg-gray-300 rounded-full" />
+        <div className="w-10 h-10 bg-gray-300 rounded-full">
+          <img src={user.profile_picture || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y&s=200"} alt="profile picture"/>
+        </div>
         <div>
           <div className="font-semibold">{user.name}</div>
           <div className="text-sm text-green-700">{user.email}</div>
