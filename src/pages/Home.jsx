@@ -14,7 +14,7 @@ function Home() {
         <div>Tags go here</div>
         <PostList />
         <div>
-          {!isAuth ? <SignOut /> : <SignIn />}
+          {isAuth ? <SignOut /> : <SignIn />}
           <p>About Us</p>
         </div>
       </div>
