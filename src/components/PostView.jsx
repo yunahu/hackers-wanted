@@ -63,12 +63,25 @@ function PostView() {
               </button>
               {/* Avatar */}
               <div className="w-10 h-10 bg-gray-300 rounded-full">
-                <img className="rounded-full" src={post.user_picture || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y&s=200"} alt="profile picture"/>
+                <img
+                  className="rounded-full"
+                  src={
+                    post.user_picture ||
+                    "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y&s=200"
+                  }
+                  alt="profile picture"
+                />
               </div>
               {/* User Info */}
               <div>
                 <div className="font-semibold">{post.user_name}</div>
-                <div className="text-sm text-gray-400">{post.created_at}</div>
+                <div className="text-sm text-gray-400">
+                  {post.created_at
+                    .replace(/([A-Z])/g, " ")
+                    .trim()
+                    .split("T")[0]
+                    .replace(".000", "")}
+                </div>
               </div>
             </div>
             {/* Dropdown */}
