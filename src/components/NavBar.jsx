@@ -8,7 +8,10 @@ function NavBar() {
   return (
     <nav className="h-[80px] bg-gray-900 border-b-4 border-green-500 text-white">
       <div className="h-full max-w-7xl flex justify-between items-center mx-auto">
-        <div className="my-auto h-[30px] text-xl flex font-bold">
+        <div
+          className="my-auto h-[30px] text-xl flex font-bold hover:cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           <img src={Logo} alt="Hackers Wanted Logo" className="mr-2" />
           Hackers Wanted
         </div>
