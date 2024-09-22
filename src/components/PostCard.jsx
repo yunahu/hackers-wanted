@@ -6,6 +6,8 @@ function PostCard({ post }) {
     navigate(`/post/${post.id}`);
   };
 
+  const tags = post.tags.split(',');;
+
   return (
     <div className="hover:cursor-pointer" onClick={handleClick}>
       <div className="bg-[#d9d9d9] rounded-2xl">
@@ -19,11 +21,11 @@ function PostCard({ post }) {
           </div>
           <h2 className="font-bold text-2xl mb-[8px]">{post.title}</h2>
           <div className="text-white ml-[3px]">
-            <p>{post.content}</p>
+            <p>{post.description}</p>
           </div>
         </div>
         <div className="bg-[#f5f5f5] h-9 flex gap-[20px] items-center rounded-b-2xl px-[15px]">
-          {post.tags.map((tag) => (
+          {tags.map((tag) => (
             <span
               className="bg-[#d9d9d9] px-[5px] rounded-full h-5 min-w-12	flex items-center text-xs justify-center"
               key={tag}
@@ -36,9 +38,9 @@ function PostCard({ post }) {
       <div className="mt-[8px] ml-[15px] mr-[15px] flex justify-between">
         <div className="flex gap-2">
           <div className="border w-4 h-4 rounded-full border-black"></div>
-          <span className="text-xs">{post.author}</span>
+          <span className="text-xs">{post.user_name}</span>
         </div>
-        <span className="text-xs">{post.date}</span>
+        <span className="text-xs">{post.created_at}</span>
       </div>
     </div>
   );

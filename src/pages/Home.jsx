@@ -1,4 +1,4 @@
-import { useAuth } from '../context/AuthContext';
+import { useApp } from '../context/AppContext';
 
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
@@ -6,7 +6,7 @@ import SignIn from "../components/SignIn";
 import SignOut from "../components/SignOut";
 
 function Home() {
-  const { user } = useAuth();
+  const { user } = useApp();
 
   return (
     <div className="bg-gray-50">

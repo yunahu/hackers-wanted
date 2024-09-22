@@ -1,67 +1,76 @@
 import PostCard from "./PostCard";
-
-// mock data
-const posts = [
-  {
-    id: 1,
-    title: "Post 1 title",
-    content: "Post 1 content",
-    tags: ["tag1", "tag2"],
-    date: "2024-09-21",
-    author: "Username",
-    open: true,
-  },
-  {
-    id: 2,
-    title: "Post 2 title",
-    content: "Post 2 content",
-    tags: ["tag2", "tag3"],
-    date: "2024-09-21",
-    author: "author2",
-    open: false,
-  },
-  {
-    id: 3,
-    title: "Post 3",
-    content: "Post 3 content",
-    tags: ["tag2", "tag3"],
-  },
-  {
-    id: 4,
-    title: "Post 4",
-    content: "Post 4 content",
-    tags: ["tag2", "tag3"],
-  },
-  {
-    id: 5,
-    title: "Post 5",
-    content: "Post 5 content",
-    tags: ["tag2", "tag3"],
-  },
-  {
-    id: 6,
-    title: "Post 6",
-    content: "Post 6 content",
-    tags: ["tag2", "tag3"],
-  },
-  {
-    id: 7,
-    title: "Post 7",
-    content: "Post 7 content",
-    tags: ["tag2", "tag3"],
-  },
-  {
-    id: 8,
-    title: "Post 8",
-    content: "Post 8 content",
-    tags: ["tag2", "tag3"],
-  },
-];
+import { useState, useEffect, useRef } from "react";
+import { useApp } from '../context/AppContext';
 
 function PostList() {
+  const [ loading, setLoading ] = useState(false);
+  const ref = useRef();
+  const LIMIT = 5;
+  const { scrollPosition, setScrollPosition, postList, setPostList, offset, setOffset } = useApp();
+
+  useEffect(() => {
+    if (ref.current && scrollPosition !== 0) {
+      ref.current.scrollTop = scrollPosition;
+    }
+  }, [scrollPosition]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      if (loading) return;
+      setLoading(true);
+
+      try {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/posts?offset=${offset}`);
+
+        if (!response.ok) throw new Error('Unable to fetch posts.');
+
+        const postData = await response.json();
+        setPostList((prevPostList) => [...prevPostList, ...postData.posts]);
+
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+      
+    };
+
+    fetchPosts();
+  }, [offset]);
+
+  useEffect(() => {
+    const handleScroll = debounce(() => {
+      const scrollableDiv = ref.current;
+      setScrollPosition(scrollableDiv.scrollTop);
+
+      if (scrollableDiv.scrollTop + scrollableDiv.clientHeight >= scrollableDiv.scrollHeight - 100 && !loading) {
+        setOffset((prevOffset) => prevOffset + LIMIT);
+      }
+    }, 200);
+
+    const scrollableDiv = ref.current;
+    if (scrollableDiv) {
+      scrollableDiv.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (scrollableDiv) {
+        scrollableDiv.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [loading]);
+
+  function debounce(fn, delay) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => fn.apply(this, args), delay);
+    };
+  }
+
   return (
-    <div className="flex flex-col gap-4 px-4 pt-4 bg-white">
-      {posts.map((post) => (
+    <div ref={ref} className="flex flex-col gap-4 px-4 pt-4 bg-white max-h-[45rem] overflow-auto">
+      {postList.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
     </div>
