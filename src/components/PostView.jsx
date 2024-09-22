@@ -62,7 +62,7 @@ function PostView() {
               <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
               {/* User Info */}
               <div>
-                <div className="font-semibold">{post.name}</div>
+                <div className="font-semibold">{post.user_name}</div>
                 <div className="text-sm text-gray-400">{post.created_at}</div>
               </div>
             </div>
@@ -136,14 +136,14 @@ function PostView() {
                 </button>
 
                 <h3 className="font-semibold">
-                  Contact {post.name} through email
+                  Contact {post.user_name} through email
                 </h3>
                 <p className="mt-2">
                   <a
-                    href={`mailto:${post.email}`}
+                    href={`mailto:${post.user_email}`}
                     className="text-green-500 hover:underline"
                   >
-                    {post.email}
+                    {post.user_email}
                   </a>
                 </p>
               </div>

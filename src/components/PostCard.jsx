@@ -38,7 +38,7 @@ function PostCard({ post }) {
       <div className="mt-[8px] ml-[15px] mr-[15px] flex justify-between">
         <div className="flex gap-2">
           <div className="border w-4 h-4 rounded-full border-black"></div>
-          <span className="text-xs">{post.name}</span>
+          <span className="text-xs">{post.user_name}</span>
         </div>
         <span className="text-xs">{post.created_at}</span>
       </div>
