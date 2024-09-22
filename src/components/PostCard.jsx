@@ -17,7 +17,9 @@ function PostCard({ post }) {
               className={`w-2.5 h-2.5 rounded-full m-1
                 ${post.status ? "bg-green-500" : "bg-gray-300"}`}
             ></div>
-            <span className="text-xs">{post.status == 1 ? "Active" : "Closed"}</span>
+            <span className="text-xs">
+              {post.status == 1 ? "Active" : "Closed"}
+            </span>
           </div>
           <h2 className="font-bold text-2xl mb-[8px]">{post.title}</h2>
           <div className="text-white ml-[3px]">
@@ -40,7 +42,13 @@ function PostCard({ post }) {
           <div className="border w-4 h-4 rounded-full border-black"></div>
           <span className="text-xs">{post.user_name}</span>
         </div>
-        <span className="text-xs">{post.created_at}</span>
+        <span className="text-xs">
+          {post.created_at
+            .replace(/([A-Z])/g, " ")
+            .trim()
+            .split("T")[0]
+            .replace(".000", "")}
+        </span>
       </div>
     </div>
   );

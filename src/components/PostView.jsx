@@ -75,7 +75,13 @@ function PostView() {
               {/* User Info */}
               <div>
                 <div className="font-semibold">{post.user_name}</div>
-                <div className="text-sm text-gray-400">{post.created_at}</div>
+                <div className="text-sm text-gray-400">
+                  {post.created_at
+                    .replace(/([A-Z])/g, " ")
+                    .trim()
+                    .split("T")[0]
+                    .replace(".000", "")}
+                </div>
               </div>
             </div>
             {/* Dropdown */}
