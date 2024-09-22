@@ -1,4 +1,4 @@
-import NewPostForm from "../components/NewPostForm";
+import PostForm from "../components/PostForm";
 import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
@@ -21,8 +21,8 @@ export default function NewPost() {
             Create New Post
           </h1>
         </div>
-        <div className="mt-8 ">
-          <NewPostForm />
+        <div className="my-8">
+          <PostForm />
         </div>
       </div>{" "}
     </>
