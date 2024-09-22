@@ -9,7 +9,7 @@ export default function PostForm(props) {
   const [skills, setSkills] = useState(props.post?.skills ?? []);
   const [startDate, setStartDate] = useState(props.post?.startDate ?? "");
   const [endDate, setEndDate] = useState(props.post?.endDate ?? "");
-  const [status, setStatus] = useState(props.post?.status ?? 1);
+  const [status, setStatus] = useState(props.post?.status);
   const navigate = useNavigate();
 
   const handleSubmit = async (evt) => {

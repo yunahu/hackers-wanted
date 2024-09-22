@@ -6,6 +6,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 
 function PostView() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function PostView() {
   const [interested, setInterested] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [post, setPost] = useState(null);
+  const { user } = useApp();
 
   const handleEdit = async () => {
     navigate(`/post/edit/${id}`);
@@ -46,8 +48,6 @@ function PostView() {
 
     run();
   }, []);
-
-  console.log("tt->", post);
 
   return (
     <div>
@@ -85,30 +85,32 @@ function PostView() {
               </div>
             </div>
             {/* Dropdown */}
-            <div className="relative">
-              <button
-                className="justify-center items-center"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <EllipsisVerticalIcon className="h-8 w-8" />
-              </button>
-              {dropdownOpen && (
-                <div className="absolute right-0 z-2 mt-2 w-28 origin-top-right rounded-lg bg-white shadow-lg">
-                  <a
-                    onClick={handleEdit}
-                    className="block px-2 py-1.5 rounded-t-lg hover:bg-green-300"
-                  >
-                    Edit
-                  </a>
-                  <a
-                    onClick={handleDelete}
-                    className="block px-2 py-1 rounded-b-lg hover:bg-green-300"
-                  >
-                    Delete
-                  </a>
-                </div>
-              )}
-            </div>
+            {post?.user_id === user?.id && (
+              <div className="relative">
+                <button
+                  className="justify-center items-center"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                >
+                  <EllipsisVerticalIcon className="h-8 w-8" />
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute right-0 z-2 mt-2 w-28 origin-top-right rounded-lg bg-white shadow-lg">
+                    <a
+                      onClick={handleEdit}
+                      className="block px-2 py-1.5 rounded-t-lg hover:bg-green-300"
+                    >
+                      Edit
+                    </a>
+                    <a
+                      onClick={handleDelete}
+                      className="block px-2 py-1 rounded-b-lg hover:bg-green-300"
+                    >
+                      Delete
+                    </a>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           <div className="mt-8 ">
             <h1 className="text-4xl font-bold flex items-center gap-2">
@@ -116,7 +118,7 @@ function PostView() {
             </h1>
             {/* Tags */}
             <div className="flex flex-row gap-1 mt-2">
-              {post.status ? (
+              {post.status == 1 ? (
                 <span className="bg-green-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                   Active
                 </span>
