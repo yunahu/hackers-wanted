@@ -29,7 +29,7 @@ function NavBar() {
 
         <div className="flex items-center border rounded-xl h-10 my-auto w-[300px] py-1 pr-2">
           <input
-            className="border-none outline-none w-full pl-2 mx-1 my-1 rounded-lg h-full"
+            className="border-none outline-none w-full pl-2 mx-1 my-1 rounded-lg h-full text-black"
             type="text"
             placeholder="Search for topic"
           />
