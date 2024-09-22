@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useAuth } from '../context/AuthContext';
 
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
@@ -6,7 +6,8 @@ import SignIn from "../components/SignIn";
 import SignOut from "../components/SignOut";
 
 function Home() {
-  const [isAuth, setIsAuth] = useState(false);
+  const { user } = useAuth();
+
   return (
     <div className="bg-gray-50">
       <NavBar />
@@ -14,7 +15,7 @@ function Home() {
         <div>Tags go here</div>
         <PostList />
         <div>
-          {isAuth ? <SignOut /> : <SignIn />}
+          {user ? <SignOut /> : <SignIn />}
           <p>About Us</p>
         </div>
       </div>
