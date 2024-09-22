@@ -6,7 +6,7 @@ function PostCard({ post }) {
     navigate(`/post/${post.id}`);
   };
 
-  const tags = post.tags.split(',');
+  const tags = post.tags.split(",");
 
   return (
     <div className="hover:cursor-pointer" onClick={handleClick}>
@@ -15,9 +15,9 @@ function PostCard({ post }) {
           <div className="rounded-full bg-white flex w-[66px] items-center mb-[15px]">
             <div
               className={`w-2.5 h-2.5 rounded-full m-1
-                ${post.open ? "bg-green-500" : "bg-gray-300"}`}
+                ${post.status ? "bg-green-500" : "bg-gray-300"}`}
             ></div>
-            <span className="text-xs">{post.status == 0 ? "Active" : "Closed"}</span>
+            <span className="text-xs">{post.status ? "Active" : "Closed"}</span>
           </div>
           <h2 className="font-bold text-2xl mb-[8px]">{post.title}</h2>
           <div className="text-white ml-[3px]">
@@ -38,7 +38,7 @@ function PostCard({ post }) {
       <div className="mt-[8px] ml-[15px] mr-[15px] flex justify-between">
         <div className="flex gap-2">
           <div className="border w-4 h-4 rounded-full border-black"></div>
-          <span className="text-xs">{post.user_name}</span>
+          <span className="text-xs">{post.name}</span>
         </div>
         <span className="text-xs">{post.created_at}</span>
       </div>
