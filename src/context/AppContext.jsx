@@ -11,6 +11,14 @@ export function AppProvider(props) {
     const [scrollPosition, setScrollPosition] = useState(0);
     const [ postList, setPostList ] = useState([]);
     const [ offset, setOffset ] = useState(0);
+    const [selectedTags, changeSelectedTags] = useState([]);
+
+    const setSelectedTags = (tags) => {
+      setPostList([]);
+      setScrollPosition(0);
+      setOffset(0);
+      changeSelectedTags(tags);
+    }
 
     useEffect(() => {
         const run = async () => {
@@ -43,7 +51,9 @@ export function AppProvider(props) {
         postList,
         setPostList,
         offset,
-        setOffset
+        setOffset,
+        selectedTags,
+        setSelectedTags
     }
 
     return (<AppContext.Provider value={value}>{props.children}</AppContext.Provider>)

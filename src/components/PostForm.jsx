@@ -26,6 +26,9 @@ export default function PostForm(props) {
           startDate,
           endDate,
           status,
+        },
+        {
+          withCredentials: true,
         }
       );
 
@@ -40,6 +43,9 @@ export default function PostForm(props) {
           tags: skills.join(","),
           startDate,
           endDate,
+        },
+        {
+          withCredentials: true,
         }
       );
 

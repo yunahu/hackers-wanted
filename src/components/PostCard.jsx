@@ -17,7 +17,7 @@ function PostCard({ post }) {
               className={`w-2.5 h-2.5 rounded-full m-1
                 ${post.status ? "bg-green-500" : "bg-gray-300"}`}
             ></div>
-            <span className="text-xs">{post.status ? "Active" : "Closed"}</span>
+            <span className="text-xs">{post.status == 1 ? "Active" : "Closed"}</span>
           </div>
           <h2 className="font-bold text-2xl mb-[8px]">{post.title}</h2>
           <div className="text-white ml-[3px]">

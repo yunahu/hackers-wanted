@@ -20,7 +20,10 @@ function PostView() {
 
   const handleDelete = async () => {
     const response = await axios.delete(
-      `${import.meta.env.VITE_BACKEND_URL}/posts/${id}`
+      `${import.meta.env.VITE_BACKEND_URL}/posts/${id}`,
+      {
+        withCredentials: true,
+      }
     );
 
     navigate(`/`);
@@ -59,7 +62,9 @@ function PostView() {
                 <ArrowLeftCircleIcon className="h-10 w-10" />
               </button>
               {/* Avatar */}
-              <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+              <div className="w-10 h-10 bg-gray-300 rounded-full">
+                <img className="rounded-full" src={post.user_picture || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y&s=200"} alt="profile picture"/>
+              </div>
               {/* User Info */}
               <div>
                 <div className="font-semibold">{post.user_name}</div>
