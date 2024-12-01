@@ -14,6 +14,8 @@ function PostList() {
     offset,
     setOffset,
     selectedTags,
+		endReached,
+		setEndReached
   } = useApp();
 
   useEffect(() => {
@@ -22,37 +24,40 @@ function PostList() {
     }
   }, [scrollPosition]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      if (loading) return;
-      setLoading(true);
+	const fetchPosts = async () => {
+		if (loading) return;
+		setLoading(true);
 
-      try {
-        let query = `${
-          import.meta.env.VITE_BACKEND_URL
-        }/posts?offset=${offset}`;
+		if (endReached) return;
 
-        if (selectedTags.length > 0) {
-          const tagsQuery = selectedTags.join(",");
-          query += `&tags=${tagsQuery}`;
-        }
+		try {
+			let query = `${
+				import.meta.env.VITE_BACKEND_URL
+			}/posts?offset=${offset}`;
 
-        console.log(query);
-        const response = await fetch(query);
+			if (selectedTags.length > 0) {
+				const tagsQuery = selectedTags.join(",");
+				query += `&tags=${tagsQuery}`;
+			}
 
-        if (!response.ok) throw new Error("Unable to fetch posts.");
+			const response = await fetch(query);
 
-        const postData = await response.json();
-        setPostList((prevPostList) => [...prevPostList, ...postData.posts]);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+			if (!response.ok) throw new Error("Unable to fetch posts.");
 
-    fetchPosts();
-  }, [offset, selectedTags]);
+			const fetchedPosts = await response.json();
+			
+			if (fetchedPosts.posts.length < 5) {
+				setEndReached(true);
+			}
+
+			setPostList((prevPostList) => [...prevPostList, ...fetchedPosts.posts]);
+			setOffset((prevOffset) => prevOffset + LIMIT);
+		} catch (err) {
+			console.error(err);
+		} finally {
+			setLoading(false);
+		}
+	};
 
   useEffect(() => {
     const handleScroll = debounce(() => {
@@ -64,7 +69,7 @@ function PostList() {
           scrollableDiv.scrollHeight - 100 &&
         !loading
       ) {
-        setOffset((prevOffset) => prevOffset + LIMIT);
+				fetchPosts();
       }
     }, 200);
 
@@ -88,6 +93,10 @@ function PostList() {
     };
   }
 
+	useEffect(() => {
+		fetchPosts();
+	}, []);
+	
   return (
     <div
       ref={ref}

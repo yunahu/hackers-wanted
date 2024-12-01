@@ -12,6 +12,7 @@ export function AppProvider(props) {
     const [ postList, setPostList ] = useState([]);
     const [ offset, setOffset ] = useState(0);
     const [selectedTags, changeSelectedTags] = useState([]);
+		const [endReached, setEndReached] = useState(false);
 
     const setSelectedTags = (tags) => {
       setPostList([]);
@@ -53,7 +54,9 @@ export function AppProvider(props) {
         offset,
         setOffset,
         selectedTags,
-        setSelectedTags
+        setSelectedTags,
+				endReached,
+				setEndReached
     }
 
     return (<AppContext.Provider value={value}>{props.children}</AppContext.Provider>)
