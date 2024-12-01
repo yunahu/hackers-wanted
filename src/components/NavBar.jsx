@@ -20,7 +20,6 @@ function NavBar() {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value)
     setSearchTerm(e.target.value);
   }
 

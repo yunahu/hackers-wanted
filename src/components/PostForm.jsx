@@ -67,7 +67,6 @@ export default function PostForm(props) {
     }
   };
 
-  console.log("ffffffff", props.post);
   return (
     <form
       onSubmit={handleSubmit}

@@ -43,7 +43,6 @@ function PostView() {
         };
         setPost(processed);
       }
-      console.log(response.data.post);
     };
 
     run();
