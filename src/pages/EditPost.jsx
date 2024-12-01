@@ -34,7 +34,7 @@ export default function EditPost() {
         <div className="flex flex-row gap-2 items-center mt-8">
           <button
             className="text-green-500 hover:text-green-700"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/')}
           >
             <ArrowLeftCircleIcon className="h-10 w-10" />
           </button>
