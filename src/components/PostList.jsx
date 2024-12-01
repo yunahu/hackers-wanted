@@ -100,7 +100,7 @@ function PostList() {
   return (
     <div
       ref={ref}
-      className="flex flex-col gap-4 px-4 pt-4 bg-white max-h-screen overflow-auto"
+      className="flex flex-col gap-4 px-4 pt-4 bg-white max-h-[45rem] overflow-auto"
     >
       {postList.map((post) => (
         <PostCard key={post.id} post={post} />
